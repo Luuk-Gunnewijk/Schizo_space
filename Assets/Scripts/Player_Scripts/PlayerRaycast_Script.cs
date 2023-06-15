@@ -6,8 +6,17 @@ public class PlayerRaycast_Script : MonoBehaviour
 {
     InteractButton_Script myInteractButton_Script;
 
+    [SerializeField] GameObject myPlayer;
+
+    [SerializeField] Transform level_Teleporter_0;
+    [SerializeField] Transform level_Teleporter_1;
+    [SerializeField] Transform level_Teleporter_2;
+
     [SerializeField] LayerMask myInteractLayer;
     [SerializeField] LayerMask myTestButtonLayer;
+    [SerializeField] LayerMask Level_0_Layer;
+    [SerializeField] LayerMask Level_1_Layer;
+    [SerializeField] LayerMask Level_2_Layer;
     RaycastHit hitinfo;
 
     public bool isMyInterractButton = false;
@@ -32,8 +41,34 @@ public class PlayerRaycast_Script : MonoBehaviour
         }
         else if (Physics.Raycast(ray, out hitinfo, 20f, myTestButtonLayer, QueryTriggerInteraction.Ignore))
         {
-
+            isMyInterractButton = true;
             myInteractButton_Script.IsInteractButtonTrue = true;
+        }
+        else if (Physics.Raycast(ray, out hitinfo, 20f, Level_0_Layer, QueryTriggerInteraction.Ignore))
+        {
+            myInteractButton_Script.IsInteractButtonTrue = true;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                myPlayer.transform.position = level_Teleporter_0.transform.position;
+                Debug.Log("Level_0");
+            }
+        }
+        else if (Physics.Raycast(ray, out hitinfo, 20f, Level_1_Layer, QueryTriggerInteraction.Ignore))
+        {
+            myInteractButton_Script.IsInteractButtonTrue = true;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("Level_1");
+            }
+        }
+        else if (Physics.Raycast(ray, out hitinfo, 20f, Level_2_Layer, QueryTriggerInteraction.Ignore))
+        {
+            myInteractButton_Script.IsInteractButtonTrue = true;
+            if(Input.GetKeyDown(KeyCode.E)) 
+            {
+                myPlayer.transform.position = level_Teleporter_2.transform.position;
+                Debug.Log("Level_2");
+            }
         }
         else
         {

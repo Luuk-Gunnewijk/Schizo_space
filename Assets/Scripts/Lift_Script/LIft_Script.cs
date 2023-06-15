@@ -4,58 +4,22 @@ using UnityEngine;
 
 public class LIft_Script : MonoBehaviour
 {
-    [Header("Lift")]
-    public GameObject lift;
-
-    [Header("Floors")]
-    public GameObject floor1;
-    public GameObject floor2;
-    public GameObject floor3;
-
-    [SerializeField] float liftSpeed = 10f;
-
-    Vector3 floor1Position;
-    Vector3 floor2Position;
-    Vector3 floor3Position;
+    Animator myAnimator;
 
     private void Start()
     {
-        floor1Position = floor1.transform.position;
-        floor2Position = floor2.transform.position;
-        floor3Position = floor3.transform.position;
-
+        myAnimator = GetComponent<Animator>();
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        MoveToFirstFloor();
-        MoveToSecondFloor();
-        MoveToThirdFloor();
-
-        
+        myAnimator.SetBool("LiftOpene", true);
+        myAnimator.SetBool("LiftClose", false);
     }
 
-    void MoveToFirstFloor()
+    private void OnTriggerExit(Collider other)
     {
-        if(Input.GetKeyDown(KeyCode.E)) 
-        {
-            lift.transform.position = floor1Position;
-        }
-    }
-
-    void MoveToSecondFloor()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            lift.transform.position += floor2Position;
-        }
-    }
-
-    void MoveToThirdFloor()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            lift.transform.position = floor3Position;
-        }
+        myAnimator.SetBool("LiftOpene", false);
+        myAnimator.SetBool("LiftClose", true);
     }
 }
